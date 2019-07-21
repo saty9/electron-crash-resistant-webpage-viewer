@@ -25,7 +25,8 @@ try{
 const createWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        fullscreen: true
+        fullscreen: true,
+        title: "sad"
     });
 
     // and load the reserve-page.html of the app.
@@ -47,14 +48,15 @@ const createWindow = () => {
 
 const kill_monitored_and_retry = () => {
     monitoredWindow.close();
-    setTimeout(create_monitored, 10*1000);
+    setTimeout(create_monitored, 60*1000);
 };
 
 const create_monitored = () => {
     monitoredWindow = new BrowserWindow({
         fullscreen: true,
         show: false,
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        title: "happy"
     });
 
     monitoredWindow.once('ready-to-show', () => {
@@ -91,6 +93,8 @@ const create_monitored = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
+app.commandLine.appendSwitch('ignore-gpu-blacklist');
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
